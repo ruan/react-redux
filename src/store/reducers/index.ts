@@ -1,10 +1,10 @@
 import { combineReducers } from "redux"
 
-import product from './product'
+import product from '../products'
 
 export default combineReducers({
   product
 })
 
-// {product: product: {}, products: []}
+// {product: {product: {}, products: []}}
 // {user: {}}

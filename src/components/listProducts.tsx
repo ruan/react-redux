@@ -1,8 +1,14 @@
 import { connect } from "react-redux";
 
-import * as ProductActions from '../store/actions/product'
+import * as ProductActions from '../store/products/actions';
+import { IProduct, IProductState } from '../store/products/types';
 
-const ListProducts = ({products, toggleProduct}) => {
+interface IListProductsProps {
+  products: IProduct[],
+  toggleProduct(product: IProduct): any
+}
+
+const ListProducts = ({products, toggleProduct}: IListProductsProps) => {
   return (
     <div>
       <h2>Lista de Produtos</h2>
@@ -18,12 +24,12 @@ const ListProducts = ({products, toggleProduct}) => {
     </div>
   )
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IProductState) => ({
   products: state.product.products
 })
 
-const mapDispatchToProps = dispatch => ({
-  toggleProduct: (product) => dispatch(ProductActions.toggleProduct(product))
+const mapDispatchToProps = (dispatch: Function) => ({
+  toggleProduct: (product: IProduct) => dispatch(ProductActions.toggleProduct(product))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListProducts);
