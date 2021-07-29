@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 
 import * as ProductActions from '../store/products/actions';
@@ -5,10 +6,16 @@ import { IProduct, IProductState } from '../store/products/types';
 
 interface IListProductsProps {
   products: IProduct[],
-  toggleProduct(product: IProduct): any
+  toggleProduct(product: IProduct): void
+  getProducts(): void
 }
 
-const ListProducts = ({products, toggleProduct}: IListProductsProps) => {
+const ListProducts = ({products, toggleProduct, getProducts}: IListProductsProps) => {
+
+  useEffect(() => {
+    getProducts()
+  }, [getProducts])
+
   return (
     <div>
       <h2>Lista de Produtos</h2>
@@ -29,7 +36,8 @@ const mapStateToProps = (state: IProductState) => ({
 })
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  toggleProduct: (product: IProduct) => dispatch(ProductActions.toggleProduct(product))
+  toggleProduct: (product: IProduct) => dispatch(ProductActions.toggleProduct(product)),
+  getProducts: () => dispatch(ProductActions.getProducts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListProducts);
